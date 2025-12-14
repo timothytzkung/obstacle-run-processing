@@ -1,4 +1,12 @@
-// --- Core player variables ---
+// ===============================
+// Obstacle Run Game (Part 1)
+// Adds: 
+// + A player and a ground line
+// For:
+// E2: Mapping Variables
+// ===============================
+
+// --- Player variables ---
 // These are global variables so BOTH setup() and draw() can access them.
 let playerX;      // Player's horizontal position (stays fixed for now)
 let playerY;      // Player's vertical position (will matter once we add jumping/gravity)
@@ -11,25 +19,26 @@ function setup() {
   // Runs ONCE when the sketch starts.
   createCanvas(600, 300);
 
+  // Ground line:
+  // This represents the player's "floor level" (where they stand when not jumping).
+  // For now, we set it to match the player's Y so the player starts "on the ground."
+  groundY = 250;
+
   // Player setup:
   // In a Geometry Dash-like game (or the Google Dinosaur Run game), the player often starts near the left side.
   playerX = 80;
 
   // We'll treat playerY as the *center* of the player square because we use rectMode(CENTER) later at Line 58.
-  // So playerY = 250 means the square's center is at y=250.
+  // So playerY = 250 (here I have playerY = groundY which represents the same thing) 
+  // means the square's center is at y=250.
   // 
   // In Processing (p5.js), the top left Canvas is (0,0); think of a Cartesian coordinate system.
   // Thus, a higher Y value means you're going down the screen while a lower Y value
   // means you're going up the screen.
-  playerY = 250;
+  playerY = groundY;
 
   // Player is a square, so playerSize will represent both width and height.
   playerSize = 30;
-
-  // Ground line:
-  // This represents the player's "floor level" (where they stand when not jumping).
-  // For now, we set it to match the player's Y so the player starts "on the ground."
-  groundY = 250;
 }
 
 function draw() {
@@ -55,6 +64,7 @@ function draw() {
   // groundY + playerSize/2
   //
   // That way, when playerY === groundY, the player looks like it's sitting on the line.
+  // line(x1, y1, x2, y2) => draws a line from (x1, y1) to (x2, y2)
   line(0, groundY + playerSize / 2, width, groundY + playerSize / 2);
 
   // --- Draw player ---
@@ -68,5 +78,6 @@ function draw() {
   rectMode(CENTER);
 
   // Draw the player square at (playerX, playerY).
+  // rect(xPosition, yPosition, sizeWidth, sizeHeight)
   rect(playerX, playerY, playerSize, playerSize);
 }
